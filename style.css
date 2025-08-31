@@ -8,12 +8,23 @@ body{
     width: 100vw;
     background: linear-gradient(45deg,#595757, #251f1f);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+h1{
+    background: linear-gradient(to right,rgb(104, 75, 75),rgb(84, 117, 84),rgb(74, 74, 150));
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    background-clip: text;
+    color: transparent;
+    
 }
 .container{
     height: 400px;
     width: 300px;
+    margin-top: 100px;
     border-radius: 20px;
     box-shadow: 5px 10px 3px rgba(83, 75, 75, 0.314) ,-5px -10px 3px rgba(82, 79, 79, 0.314) ;
     
