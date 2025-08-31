@@ -3,7 +3,7 @@ let nodeOfButtons = document.querySelectorAll('button');
 let value = '';
 let op;
 let functionalOperator = ["DEL","C","="];
-let mathamaticalOperator = ["+","-","*","/","^",]
+let mathamaticalOperator = ["+","-","*","/","^"]
 let buttons = Array.from(nodeOfButtons);
 
 buttons.forEach((button)=>{
@@ -32,6 +32,7 @@ buttons.forEach((button)=>{
                 if(value.includes(".")){
                     value = (+value).toFixed(1)    
                 }
+                value += e.target.id;
                 input.value = value;
                 op = null
 
@@ -45,13 +46,17 @@ buttons.forEach((button)=>{
         }else if(e.target.id == "." ){
             if(value.includes(".")){
                 if(op){
+                  let splitedValue = value.split(op)  
+                  if(splitedValue[1] == "" || !splitedValue[1].includes(".")){
                     value += e.target.id;
                     input.value = value;
+                  }
+                }else{
+                    input.value = value;    
                 }
-                input.value = value;    
-            }else if(value == ""){
-                value = '';
-                input.value = value;
+                }else if(value == ""){
+                 value = e.target.id
+                 input.value = value;
             }else if(value.charAt(value.length-1) == "."){
                 value = value.substring(0,value.length-1);
                 value += e.target.id;
