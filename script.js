@@ -16,34 +16,50 @@ buttons.forEach((button)=>{
             value = value.substring(0,value.length-1);
             input.value = value;
 
-        }else if(mathamaticalOperator.includes(e.target.id) && value == ""){
-              value = '';
-              input.value = value;
-
-        }else if(e.target.id == "." ){
+        }else if(mathamaticalOperator.includes(e.target.id)){
             if(value == ""){
                 value = '';
                 input.value = value;
-            }else if(value.charAt(value.length-1) == "."){
-               value = value.substring(0,value.length-1);
-               value += e.target.id;
-               input.value = value;
-            }else if (value !== ""){
-                 value += e.target.id;
-              input.value = value;
-            }
-                
 
-        }else if(mathamaticalOperator.includes(e.target.id) && mathamaticalOperator.includes(value.charAt(value.length-1))){
+            }else if(mathamaticalOperator.includes(value.charAt(value.length-1))){
                value = value.substring(0,value.length-1);
                value += e.target.id;
                input.value = value;
                op = e.target.id;
 
-        }else if(mathamaticalOperator.includes(e.target.id) && value !== ""){
+            }else if(op && !mathamaticalOperator.includes(value.charAt(value.length-1))){
+                value = `${calculator.calculate(value)}`;
+                if(value.includes(".")){
+                    value = (+value).toFixed(1)    
+                }
+                input.value = value;
+                op = null
+
+            }else if(!mathamaticalOperator.includes(value.charAt(value.length-1))){
               value += e.target.id;
               input.value = value;
               op = e.target.id;
+              
+            }
+
+        }else if(e.target.id == "." ){
+            if(value.includes(".")){
+                if(op){
+                    value += e.target.id;
+                    input.value = value;
+                }
+                input.value = value;    
+            }else if(value == ""){
+                value = '';
+                input.value = value;
+            }else if(value.charAt(value.length-1) == "."){
+                value = value.substring(0,value.length-1);
+                value += e.target.id;
+                input.value = value;
+            }else if (value !== ""){
+                 value += e.target.id;
+                 input.value = value;
+            }
 
         }else if(e.target.id == "="){
 
@@ -51,13 +67,19 @@ buttons.forEach((button)=>{
                 input.value = value;
                }else if(value.charAt(value.length-1) == op){
                 input.value = value;
-               }else{
-                value = `${calculator.calculate(value).toFixed(1)}`
+               }else if(!op){
                 input.value = value;
+               }else{
+                value = `${calculator.calculate(value)}`
+                if(value.includes(".")){
+                    value = (+value).toFixed(1)    
+                }
+                input.value = value;
+                op = null;
                }
 
         }else if(!functionalOperator.includes(e.target.textContent)){
-            value +=  e.target.id
+              value +=  e.target.id
               input.value = value;
         }
     })
